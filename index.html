@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A09">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Centrifugal Propulsion Systems — Zero Downdraft Propulsion</title>
+<meta name="description" content="Patented counter-rotating centrifugal force propulsion for aerial, marine, and space vehicles. No rotors. No downdraft. No limits.">
+<meta property="og:title" content="Centrifugal Propulsion Systems — Zero Downdraft Propulsion Technology">
+<meta property="og:description" content="The first propulsion system that generates thrust through centrifugal force. No rotors. No downdraft. Works everywhere.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM
+   ═══════════════════════════════════════════ */
+:root {
+  --brand: #22D68A;
+  --brand-dim: #1AB876;
+  --brand-glow: rgba(34,214,138,0.15);
+  --brand-glow2: rgba(34,214,138,0.08);
+  --bg: #06060A; --bg2: #0C0C12; --bg3: #12121A;
+  --surface: #16161E; --surface2: #1C1C26;
+  --border: #222230; --border2: #2A2A38;
+  --text: #B8B8C8; --text2: #78788A; --text3: #505060;
+  --white: #F0F0F8; --pure-white: #FFFFFF;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Satoshi', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.light {
+  --bg: #FAFAF8; --bg2: #F4F4F0; --bg3: #EDEDEA;
+  --surface: #FFFFFF; --surface2: #F8F8F5;
+  --border: #E0E0D8; --border2: #D0D0C8;
+  --text: #4A4A52; --text2: #8A8A92; --text3: #AAAAAÁ;
+  --white: #121218; --pure-white: #000000;
+}
+.light { --brand: #14A868; --brand-dim: #119858; --brand-glow: rgba(20,168,104,0.12); --brand-glow2: rgba(20,168,104,0.06); }
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem;overflow-x:hidden;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  -webkit-text-size-adjust:100%;}
+::selection{background:var(--brand-glow);color:var(--white);}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════ */
+.container{max-width:72rem;margin:0 auto;padding:0 1.25rem;}
+@media(min-width:640px){.container{padding:0 2rem;}}
+@media(min-width:1024px){.container{padding:0 2.5rem;}}
+.section{padding:6rem 0;}
+@media(min-width:768px){.section{padding:8rem 0;}}
+@media(min-width:1024px){.section{padding:10rem 0;}}
+.section-alt{background:var(--bg2);}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+.fd{font-family:var(--font-display);}
+.fm{font-family:var(--font-mono);}
+.headline{font-family:var(--font-display);color:var(--white);
+  font-size:clamp(2rem,5.5vw,3.75rem);line-height:1.1;letter-spacing:-0.02em;}
+.headline-xl{font-size:clamp(2.75rem,7vw,5.5rem);line-height:1.02;letter-spacing:-0.03em;}
+.subhead{font-size:clamp(1.05rem,2vw,1.25rem);color:var(--text);line-height:1.65;max-width:38rem;}
+.label{display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:var(--font-mono);font-size:0.7rem;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--brand);
+  margin-bottom:1.5rem;}
+.label::before{content:'';width:1.5rem;height:1px;background:var(--brand);display:block;}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION — Compact, no wrapping
+   ═══════════════════════════════════════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:all 0.4s var(--ease-out);}
+.nav.scrolled{background:rgba(6,6,10,0.88);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);}
+.light .nav.scrolled{background:rgba(250,250,248,0.9);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:3.75rem;}
+@media(min-width:1024px){.nav-inner{height:4rem;}}
+.logo{display:flex;align-items:center;gap:0.5rem;white-space:nowrap;}
+.logo-mark{width:1.75rem;height:1.75rem;border-radius:0.375rem;
+  background:linear-gradient(135deg,var(--brand),var(--brand-dim));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-text{font-family:var(--font-display);font-size:1rem;color:var(--brand);
+  font-weight:400;white-space:nowrap;}
+@media(max-width:400px){.logo-text{font-size:0.875rem;}}
+.nav-links{display:none;gap:0.125rem;align-items:center;}
+@media(min-width:1280px){.nav-links{display:flex;}}
+.nav-link{padding:0.375rem 0.5rem;font-size:0.75rem;font-weight:600;
+  color:var(--text2);border-radius:0.375rem;transition:color 0.2s;
+  white-space:nowrap;letter-spacing:0.01em;}
+.nav-link:hover,.nav-link.active{color:var(--brand);}
+.nav-right{display:flex;align-items:center;gap:0.375rem;}
+.theme-btn{width:2rem;height:2rem;border:none;background:none;color:var(--text2);
+  border-radius:0.375rem;display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;}
+.theme-btn:hover{color:var(--white);background:var(--surface);}
+.nav-cta{display:none;align-items:center;gap:0.375rem;padding:0.4rem 0.875rem;
+  font-size:0.75rem;font-weight:700;background:var(--brand);color:var(--bg);
+  border-radius:0.375rem;border:none;transition:all 0.3s;white-space:nowrap;}
+.nav-cta:hover{background:var(--brand-dim);transform:translateY(-1px);}
+@media(min-width:640px){.nav-cta{display:inline-flex;}}
+.menu-btn{display:flex;width:2rem;height:2rem;align-items:center;justify-content:center;
+  border:none;background:none;color:var(--text);border-radius:0.375rem;}
+@media(min-width:1280px){.menu-btn{display:none;}}
+
+/* Mobile menu */
+.mobile-menu{display:none;position:fixed;inset:0;z-index:99;background:var(--bg);
+  padding:4.5rem 1.25rem 2rem;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.mobile-menu.open{display:flex;flex-direction:column;gap:0.25rem;}
+.mobile-link{display:block;padding:0.875rem 0;font-size:1.125rem;font-weight:600;
+  color:var(--text);border-bottom:1px solid var(--border);transition:color 0.2s;}
+.mobile-link:hover,.mobile-link:active{color:var(--brand);}
+.mobile-cta{margin-top:1.5rem;display:block;text-align:center;padding:1rem;
+  font-size:1rem;font-weight:700;background:var(--brand);color:var(--bg);
+  border-radius:0.75rem;border:none;width:100%;}
+
+/* ═══════════════════════════════════════════
+   SCROLL ANIMATIONS
+   ═══════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(2.5rem);transition:opacity 0.8s var(--ease-out),transform 0.8s var(--ease-out);}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-2rem);transition:opacity 0.8s var(--ease-out),transform 0.8s var(--ease-out);}
+.reveal-left.vis{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(2rem);transition:opacity 0.8s var(--ease-out),transform 0.8s var(--ease-out);}
+.reveal-right.vis{opacity:1;transform:translateX(0);}
+.reveal-scale{opacity:0;transform:scale(0.92);transition:opacity 0.8s var(--ease-out),transform 0.8s var(--ease-out);}
+.reveal-scale.vis{opacity:1;transform:scale(1);}
+.stagger-1{transition-delay:0.05s;}.stagger-2{transition-delay:0.1s;}.stagger-3{transition-delay:0.15s;}
+.stagger-4{transition-delay:0.2s;}.stagger-5{transition-delay:0.25s;}.stagger-6{transition-delay:0.3s;}
+.stagger-7{transition-delay:0.35s;}.stagger-8{transition-delay:0.4s;}
+
+/* Parallax text */
+.parallax-text{transition:transform 0.1s linear;}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero{min-height:100svh;display:flex;align-items:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;}
+.hero-gradient{position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(34,214,138,0.06),transparent 70%),
+  linear-gradient(to bottom,var(--bg),var(--bg));}
+.light .hero-gradient{background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(20,168,104,0.05),transparent 70%),linear-gradient(to bottom,var(--bg),var(--bg));}
+.hero-grid{position:absolute;inset:0;opacity:0.035;
+  background-image:linear-gradient(var(--text3) 1px,transparent 1px),linear-gradient(90deg,var(--text3) 1px,transparent 1px);
+  background-size:80px 80px;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.5;pointer-events:none;}
+.hero-orb-1{width:30rem;height:30rem;top:-5rem;right:-10rem;background:var(--brand-glow2);}
+.hero-orb-2{width:20rem;height:20rem;bottom:5rem;left:-8rem;background:rgba(34,214,138,0.03);}
+.hero-content{position:relative;z-index:2;padding:7rem 0 4rem;width:100%;}
+@media(min-width:768px){.hero-content{padding:9rem 0 5rem;}}
+.hero-badge{display:inline-flex;align-items:center;gap:0.625rem;
+  padding:0.375rem 1rem;border-radius:9999px;border:1px solid rgba(34,214,138,0.25);
+  background:rgba(34,214,138,0.06);font-family:var(--font-mono);font-size:0.7rem;
+  font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--brand);
+  margin-bottom:2rem;}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);
+  animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+.hero h1{font-family:var(--font-display);color:var(--white);
+  font-size:clamp(2.75rem,7vw,5.5rem);line-height:1.02;letter-spacing:-0.03em;
+  margin-bottom:1.5rem;}
+.hero h1 em{font-style:italic;color:var(--brand);}
+.hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--text);max-width:36rem;
+  margin-bottom:2.5rem;line-height:1.7;}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:4rem;}
+@media(max-width:400px){.hero-ctas{flex-direction:column;}.hero-ctas a,.hero-ctas button{width:100%;justify-content:center;}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.9375rem;font-weight:600;
+  border-radius:0.625rem;padding:0.8125rem 1.5rem;transition:all 0.35s var(--ease-out);border:none;}
+.btn-p{background:var(--brand);color:var(--bg);box-shadow:0 0 24px var(--brand-glow),0 2px 8px rgba(0,0,0,0.2);}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 40px var(--brand-glow),0 4px 16px rgba(0,0,0,0.3);}
+.btn-s{background:var(--surface);color:var(--text);border:1px solid var(--border);}
+.btn-s:hover{border-color:var(--brand);color:var(--white);transform:translateY(-2px);}
+
+/* Hero metrics */
+.hero-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;
+  padding-top:2.5rem;border-top:1px solid var(--border);}
+@media(min-width:640px){.hero-metrics{grid-template-columns:repeat(4,1fr);gap:2rem;}}
+.hm{text-align:center;}
+.hm-val{font-family:var(--font-display);font-size:clamp(1.75rem,4vw,2.75rem);
+  color:var(--brand);line-height:1.1;}
+.hm-label{font-size:0.75rem;color:var(--text2);text-transform:uppercase;
+  letter-spacing:0.06em;font-weight:600;margin-top:0.25rem;}
+
+/* Scroll indicator */
+.scroll-ind{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.4;}
+.scroll-line{width:1px;height:2.5rem;background:linear-gradient(to bottom,var(--brand),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}
+  50.01%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* ═══════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════ */
+.cards{display:grid;grid-template-columns:1fr;gap:1rem;}
+@media(min-width:640px){.cards{grid-template-columns:repeat(2,1fr);}}
+.cards-3{grid-template-columns:1fr;}
+@media(min-width:640px){.cards-3{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1024px){.cards-3{grid-template-columns:repeat(3,1fr);}}
+.card{border-radius:1rem;border:1px solid var(--border);background:var(--surface);
+  padding:1.5rem;transition:all 0.4s var(--ease-out);position:relative;overflow:hidden;}
+@media(min-width:640px){.card{padding:1.75rem;}}
+.card::after{content:'';position:absolute;bottom:0;left:1.5rem;right:1.5rem;height:2px;
+  background:linear-gradient(90deg,transparent,var(--brand),transparent);
+  opacity:0;transition:opacity 0.4s;}
+.card:hover{border-color:rgba(34,214,138,0.3);transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(34,214,138,0.05);}
+.card:hover::after{opacity:0.6;}
+.card-icon{width:2.25rem;height:2.25rem;border-radius:0.5rem;background:var(--brand-glow2);
+  display:flex;align-items:center;justify-content:center;margin-bottom:0.875rem;color:var(--brand);}
+.card h3{font-family:var(--font-display);font-size:1.25rem;color:var(--white);margin-bottom:0.375rem;line-height:1.25;}
+.card p{font-size:0.9375rem;color:var(--text);line-height:1.6;}
+.card-metric{margin-top:0.875rem;font-family:var(--font-mono);font-size:0.8125rem;
+  color:var(--brand);background:var(--brand-glow2);border-radius:0.5rem;padding:0.5rem 0.75rem;}
+
+/* ═══════════════════════════════════════════
+   TECHNICAL ANIMATION — Counter-Rotating System
+   ═══════════════════════════════════════════ */
+.tech-anim{position:relative;width:100%;max-width:32rem;margin:0 auto 3rem;aspect-ratio:1.4/1;}
+@media(min-width:768px){.tech-anim{max-width:40rem;}}
+.tech-svg{width:100%;height:100%;}
+.tire-group{transition:transform 0.1s linear;}
+@keyframes spinCW{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes spinCCW{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+.spin-cw{animation:spinCW 3s linear infinite;}
+.spin-ccw{animation:spinCCW 3s linear infinite;}
+.force-arrow{opacity:0;transition:opacity 0.6s,transform 0.6s var(--ease-out);transform:translateY(8px);}
+.force-arrow.show{opacity:1;transform:translateY(0);}
+.belt-path{stroke-dasharray:8 4;animation:beltMove 1s linear infinite;}
+@keyframes beltMove{to{stroke-dashoffset:-12;}}
+.label-tag{font-family:var(--font-mono);font-size:0.625rem;fill:var(--text2);text-transform:uppercase;letter-spacing:0.08em;}
+@media(min-width:768px){.label-tag{font-size:0.6875rem;}}
+.anim-caption{text-align:center;font-size:0.8125rem;color:var(--text2);margin-top:0.5rem;
+  font-family:var(--font-mono);letter-spacing:0.02em;}
+
+/* Step indicators for animation */
+.tech-steps{display:flex;justify-content:center;gap:0.5rem;margin-top:1.25rem;}
+.tech-step{width:2rem;height:0.25rem;border-radius:2px;background:var(--border);
+  transition:all 0.4s;cursor:pointer;}
+.tech-step.active{background:var(--brand);width:3rem;}
+
+/* ═══════════════════════════════════════════
+   HOW IT WORKS — Sticky scroll section
+   ═══════════════════════════════════════════ */
+.hiw-wrap{position:relative;}
+.hiw-grid{display:grid;grid-template-columns:1fr;gap:2rem;}
+@media(min-width:768px){.hiw-grid{grid-template-columns:1fr 1fr;gap:3rem;}}
+.hiw-steps{display:flex;flex-direction:column;gap:2rem;}
+.hiw-step{padding:1.25rem 1.5rem;border-radius:0.875rem;border:1px solid transparent;
+  transition:all 0.4s var(--ease-out);cursor:default;}
+.hiw-step.active-step{border-color:var(--brand);background:var(--brand-glow2);}
+.hiw-step-num{font-family:var(--font-mono);font-size:0.6875rem;font-weight:700;
+  color:var(--brand);letter-spacing:0.1em;margin-bottom:0.25rem;}
+.hiw-step h4{font-family:var(--font-display);font-size:1.25rem;color:var(--white);margin-bottom:0.25rem;}
+.hiw-step p{font-size:0.9375rem;color:var(--text);line-height:1.6;}
+
+/* ═══════════════════════════════════════════
+   MARKET — Horizontal scroll on mobile
+   ═══════════════════════════════════════════ */
+.market-grid{display:grid;grid-template-columns:1fr;gap:0.75rem;}
+@media(min-width:640px){.market-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1024px){.market-grid{grid-template-columns:repeat(3,1fr);}}
+.market-card{border-radius:0.75rem;border:1px solid var(--border);background:var(--surface);
+  padding:1.125rem 1.25rem;transition:all 0.35s;position:relative;overflow:hidden;}
+.market-card:hover{border-color:rgba(34,214,138,0.3);}
+.market-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;gap:0.5rem;}
+.market-top h4{font-size:0.9375rem;font-weight:600;color:var(--white);line-height:1.3;}
+.market-tam{font-family:var(--font-mono);font-size:0.8125rem;font-weight:700;
+  color:var(--brand);white-space:nowrap;}
+.market-meta{display:flex;gap:1rem;font-size:0.6875rem;text-transform:uppercase;
+  letter-spacing:0.04em;color:var(--text2);}
+.market-meta strong{font-family:var(--font-mono);font-weight:600;color:var(--text);}
+
+/* ═══════════════════════════════════════════
+   TIMELINE
+   ═══════════════════════════════════════════ */
+.timeline{position:relative;max-width:40rem;}
+.tl-line{position:absolute;left:0.6875rem;top:0;bottom:0;width:1px;background:var(--border);}
+.tl-item{position:relative;padding-left:2.5rem;padding-bottom:2.25rem;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{position:absolute;left:0;top:0.25rem;width:1.375rem;height:1.375rem;
+  border-radius:50%;border:3px solid var(--bg);z-index:1;}
+.section-alt .tl-dot{border-color:var(--bg2);}
+.tl-dot.done{background:var(--brand);}
+.tl-dot.now{background:var(--brand);box-shadow:0 0 0 4px var(--brand-glow);}
+.tl-dot.soon{background:var(--text3);}
+.tl-meta{display:flex;align-items:baseline;gap:0.625rem;margin-bottom:0.25rem;}
+.tl-date{font-family:var(--font-mono);font-size:0.6875rem;font-weight:700;
+  color:var(--brand);text-transform:uppercase;letter-spacing:0.06em;}
+.tl-time{font-size:0.6875rem;color:var(--text2);}
+.tl-title{font-family:var(--font-display);font-size:1.1875rem;color:var(--white);margin-bottom:0.25rem;}
+.tl-desc{font-size:0.9375rem;color:var(--text);line-height:1.6;max-width:32rem;}
+.tl-list{margin-top:0.5rem;list-style:none;}
+.tl-list li{font-size:0.875rem;color:var(--text);display:flex;align-items:flex-start;
+  gap:0.5rem;padding:0.1875rem 0;}
+.tl-list li::before{content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--brand);opacity:0.5;margin-top:0.4375rem;flex-shrink:0;}
+
+/* ═══════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════ */
+.faq{max-width:44rem;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{width:100%;display:flex;justify-content:space-between;align-items:flex-start;
+  gap:1rem;padding:1.125rem 0;text-align:left;background:none;border:none;
+  font-size:1.0625rem;font-weight:600;color:var(--white);transition:color 0.2s;
+  font-family:var(--font-body);line-height:1.4;}
+.faq-q:hover{color:var(--brand);}
+.faq-chev{flex-shrink:0;margin-top:0.25rem;color:var(--text2);transition:transform 0.3s var(--ease-out);}
+.faq-item.open .faq-chev{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s var(--ease-out),padding 0.4s;}
+.faq-item.open .faq-a{max-height:20rem;padding-bottom:1.125rem;}
+.faq-a p{font-size:0.9375rem;color:var(--text);line-height:1.65;max-width:38rem;}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════ */
+.form-card{max-width:32rem;}
+.form-row{display:grid;grid-template-columns:1fr;gap:1rem;margin-bottom:1rem;}
+@media(min-width:500px){.form-row{grid-template-columns:1fr 1fr;}}
+.form-group{margin-bottom:1rem;}
+.form-label{display:block;font-size:0.8125rem;font-weight:600;color:var(--text);margin-bottom:0.375rem;}
+.form-label .req{color:var(--brand);margin-left:0.125rem;}
+.form-input,.form-select,.form-textarea{width:100%;border-radius:0.625rem;
+  border:1px solid var(--border);background:var(--surface);color:var(--white);
+  padding:0.6875rem 0.875rem;font-size:0.9375rem;font-family:var(--font-body);
+  transition:all 0.2s;outline:none;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--brand);
+  box-shadow:0 0 0 3px var(--brand-glow);}
+.form-textarea{resize:none;min-height:5rem;}
+.form-select{appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2378788A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 0.875rem center;padding-right:2.25rem;}
+.form-submit{width:100%;padding:0.8125rem;font-size:0.9375rem;font-weight:700;
+  background:var(--brand);color:var(--bg);border:none;border-radius:0.625rem;
+  transition:all 0.3s var(--ease-out);box-shadow:0 0 20px var(--brand-glow);}
+.form-submit:hover{background:var(--brand-dim);transform:translateY(-1px);}
+.form-note{font-size:0.6875rem;color:var(--text2);margin-top:0.875rem;line-height:1.5;}
+
+/* Success state */
+.form-success{display:none;text-align:center;padding:3rem 1.5rem;}
+.form-success.show{display:block;}
+.form-success .check-circle{width:3.5rem;height:3.5rem;border-radius:50%;
+  background:var(--brand-glow2);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1rem;}
+
+/* ═══════════════════════════════════════════
+   TEAM
+   ═══════════════════════════════════════════ */
+.team-card{text-align:center;}
+.team-avatar{width:3.75rem;height:3.75rem;border-radius:1rem;margin:0 auto 0.875rem;
+  background:linear-gradient(135deg,var(--brand-glow),var(--brand-glow2));
+  display:flex;align-items:center;justify-content:center;}
+.team-avatar span{font-family:var(--font-display);font-size:1.5rem;color:var(--brand);}
+.team-role{font-size:0.8125rem;font-weight:700;color:var(--brand);
+  font-family:var(--font-mono);letter-spacing:0.02em;margin-bottom:0.5rem;}
+.team-bio{font-size:0.875rem;color:var(--text);line-height:1.6;}
+
+/* ═══════════════════════════════════════════
+   CTA BAND
+   ═══════════════════════════════════════════ */
+.cta-band{position:relative;padding:6rem 0;text-align:center;overflow:hidden;}
+.cta-band-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,var(--brand-glow2),transparent);}
+.cta-band .headline{margin-bottom:1rem;}
+.cta-band .subhead{margin:0 auto 2.5rem;text-align:center;}
+.cta-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem;}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer{border-top:1px solid var(--border);background:var(--bg2);padding:3rem 0 2rem;}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:2rem;margin-bottom:2.5rem;}
+@media(min-width:640px){.footer-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1024px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1.5fr;}}
+.footer-brand p{font-size:0.8125rem;color:var(--text2);max-width:16rem;margin-top:0.75rem;}
+.footer-col h4{font-family:var(--font-mono);font-size:0.625rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.1em;color:var(--text2);margin-bottom:0.75rem;}
+.footer-col a{display:block;font-size:0.8125rem;color:var(--text2);padding:0.25rem 0;transition:color 0.2s;}
+.footer-col a:hover{color:var(--brand);}
+.footer-bottom{padding-top:1.5rem;border-top:1px solid var(--border);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;}
+.footer-bottom p{font-size:0.6875rem;color:var(--text3);}
+
+/* ═══════════════════════════════════════════
+   SMOOTH SCROLL PROGRESS BAR
+   ═══════════════════════════════════════════ */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--brand);
+  z-index:200;transform-origin:left;transform:scaleX(0);transition:none;
+  box-shadow:0 0 8px var(--brand-glow);}
+
+/* ═══════════════════════════════════════════
+   UTILITY
+   ═══════════════════════════════════════════ */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:var(--text3);}
+
+/* Safe area for iPhone notch */
+@supports(padding:max(0px)){
+  .hero-content{padding-top:max(7rem,env(safe-area-inset-top) + 5rem);}
+  footer .footer-bottom{padding-bottom:max(1rem,env(safe-area-inset-bottom));}
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="mainNav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+          <circle cx="8" cy="12" r="5"/><circle cx="16" cy="12" r="5"/>
+        </svg>
+      </div>
+      <span class="logo-text">Centrifugal Propulsion Systems</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link" href="#problem">Problem</a>
+      <a class="nav-link" href="#solution">Solution</a>
+      <a class="nav-link" href="#product">Product</a>
+      <a class="nav-link" href="#how-it-works">Mechanism</a>
+      <a class="nav-link" href="#market">Market</a>
+      <a class="nav-link" href="#traction">Traction</a>
+      <a class="nav-link" href="#business-model">Model</a>
+      <a class="nav-link" href="#security">Security</a>
+      <a class="nav-link" href="#roadmap">Roadmap</a>
+      <a class="nav-link" href="#team">Team</a>
+      <a class="nav-link" href="#faq">FAQ</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" id="themeBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" id="themeIcon">
+          <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/>
+        </svg>
+      </button>
+      <a href="#contact" class="nav-cta">Request Demo</a>
+      <button class="menu-btn" onclick="toggleMenu()" id="menuBtn" aria-label="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a class="mobile-link" href="#problem" onclick="closeMenu()">Problem</a>
+  <a class="mobile-link" href="#solution" onclick="closeMenu()">Solution</a>
+  <a class="mobile-link" href="#product" onclick="closeMenu()">Product</a>
+  <a class="mobile-link" href="#how-it-works" onclick="closeMenu()">How It Works</a>
+  <a class="mobile-link" href="#market" onclick="closeMenu()">Market</a>
+  <a class="mobile-link" href="#traction" onclick="closeMenu()">Traction</a>
+  <a class="mobile-link" href="#business-model" onclick="closeMenu()">Business Model</a>
+  <a class="mobile-link" href="#security" onclick="closeMenu()">Security</a>
+  <a class="mobile-link" href="#roadmap" onclick="closeMenu()">Roadmap</a>
+  <a class="mobile-link" href="#team" onclick="closeMenu()">Team</a>
+  <a class="mobile-link" href="#faq" onclick="closeMenu()">FAQ</a>
+  <a class="mobile-link" href="#contact" onclick="closeMenu()">Contact</a>
+  <a class="mobile-cta" href="#contact" onclick="closeMenu()">Request Demo</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-badge reveal"><span class="dot"></span> Patent Protected · Pre-Seed</div>
+    <h1 class="reveal stagger-1">Propulsion without<br><em>air displacement.</em></h1>
+    <p class="hero-sub reveal stagger-2">The first system that generates thrust through centrifugal force instead of pushing air. No rotors. No downdraft. No turbulence. Works in atmosphere, underwater, and in vacuum.</p>
+    <div class="hero-ctas reveal stagger-3">
+      <a href="#contact" class="btn btn-p">Request a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+      <a href="#" class="btn btn-s">Download Pitch Deck <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5l5 5 5-5m-5 5V3"/></svg></a>
+    </div>
+    <div class="hero-metrics reveal stagger-4">
+      <div class="hm"><div class="hm-val fd">$330B+</div><div class="hm-label">Combined TAM by 2030</div></div>
+      <div class="hm"><div class="hm-val fd">18</div><div class="hm-label">Addressable Sectors</div></div>
+      <div class="hm"><div class="hm-val fd">1</div><div class="hm-label">Issued Patent</div></div>
+      <div class="hm"><div class="hm-val fd">0</div><div class="hm-label">Downdraft (N)</div></div>
+    </div>
+  </div>
+  <div class="scroll-ind"><div class="scroll-line"></div><span style="font-size:0.625rem;font-family:var(--font-mono);color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;">Scroll</span></div>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="section section-alt" id="problem">
+  <div class="container">
+    <div class="label reveal">The Problem</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:1.25rem;">Every aerial vehicle shares<br>the same fundamental flaw.</h2>
+    <p class="subhead reveal stagger-2" style="margin-bottom:3.5rem;">Helicopters, drones, eVTOLs, and jet engines all generate thrust by displacing air downward. This creates rotor wash, turbulence, noise, and dust that limit where these vehicles can operate.</p>
+    <div class="cards">
+      <div class="card reveal stagger-1"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg></div><h3>Rotor wash exclusion zones</h3><p>eVTOL companies spend $10M to $50M per vertiport to manage wind. Delivery drones cannot land on porches. Film drones blow actors' hair.</p></div>
+      <div class="card reveal stagger-2"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4m0 4h.01"/></svg></div><h3>Brownout kills operators</h3><p>In Iraq and Afghanistan, dust clouds from helicopter rotor wash caused more aircraft losses than enemy fire. DOD spends over $1B annually on mitigation.</p></div>
+      <div class="card reveal stagger-3"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><h3>Firefighting drones fan flames</h3><p>No existing drone can approach an active wildfire. Rotor wash scatters burning embers, the primary mechanism of wildfire spread.</p></div>
+      <div class="card reveal stagger-4"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Rotors fail in vacuum</h3><p>Propellers require atmosphere. Mars helicopter Ingenuity barely flew in 1% air density. In space, only rockets work, and they require fuel.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOLUTION ═══ -->
+<section class="section" id="solution">
+  <div class="container">
+    <div class="label reveal">The Solution</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:1.25rem;">Centrifugal force. <em class="fd" style="color:var(--brand);font-style:italic;">Directed.</em></h2>
+    <p class="subhead reveal stagger-2" style="margin-bottom:3.5rem;">Two pneumatic tires rotate in opposite directions, each driven by a roller of equal diameter. A transmission belt under tension connects them. The counter-rotation generates directional centrifugal force, producing thrust without displacing a single molecule of air.</p>
+    <div class="cards">
+      <div class="card reveal stagger-1"><h3>Zero downdraft</h3><p>No air displacement means no rotor wash, no dust, no turbulence. Hover silently one meter from a person.</p></div>
+      <div class="card reveal stagger-2"><h3>Medium agnostic</h3><p>Centrifugal force is mechanical, not aerodynamic. Works identically in air, water, and vacuum.</p></div>
+      <div class="card reveal stagger-3"><h3>Scales to any size</h3><p>From 6 inch inspection drones to passenger aircraft. Same physics at every scale.</p></div>
+      <div class="card reveal stagger-4"><h3>Electric native</h3><p>Designed for electric motor drive. Solar powered in space, battery powered on Earth. No combustion required.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCT ═══ -->
+<section class="section section-alt" id="product">
+  <div class="container">
+    <div class="label reveal">Product</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:1.25rem;">One propulsion platform.<br>Infinite applications.</h2>
+    <p class="subhead reveal stagger-2" style="margin-bottom:3.5rem;">The core propulsion module is a licensable unit adaptable across vehicle types. We do not build vehicles. We provide the engine that eliminates their biggest constraint.</p>
+    <div class="cards">
+      <div class="card reveal stagger-1"><h3>Propulsion Module</h3><p>Self-contained counter-rotating assembly. Modular mounting. Adjustable thrust vector via swivel at center of gravity.</p></div>
+      <div class="card reveal stagger-2"><h3>Electric Motor Integration</h3><p>Direct drive or belt coupled electric motors regulate speed and thrust with precision unavailable in combustion systems.</p></div>
+      <div class="card reveal stagger-3"><h3>Multi-Ensemble Scaling</h3><p>Stack modules side by side or inline for increased force. Linear thrust scaling with predictable power curves.</p></div>
+      <div class="card reveal stagger-4"><h3>Direction Control</h3><p>Swivel assembly rotates the ensemble to direct predominant force vector. Full 360 degree maneuverability.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS — with animated technical diagram ═══ -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="label reveal">How It Works</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:1rem;">Physics, not aerodynamics.</h2>
+    <p class="subhead reveal stagger-2" style="margin-bottom:3rem;">The mechanism is elegant. Counter-rotating tires generate directional centrifugal force through synchronized mechanical interaction.</p>
+
+    <!-- Technical SVG Animation -->
+    <div class="tech-anim reveal stagger-3" id="techAnim">
+      <svg class="tech-svg" viewBox="0 0 560 400" fill="none">
+        <!-- Frame / chassis -->
+        <rect x="100" y="165" width="360" height="70" rx="6" fill="none" stroke="var(--border2)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="280" y="210" text-anchor="middle" class="label-tag" fill="var(--text3)" font-size="9">CHASSIS FRAME</text>
+
+        <!-- Left tire assembly -->
+        <g id="leftAssembly">
+          <circle cx="190" cy="200" r="68" fill="none" stroke="var(--border)" stroke-width="1"/>
+          <!-- Tire -->
+          <circle cx="190" cy="200" r="60" fill="none" stroke="var(--brand)" stroke-width="3" opacity="0.3"/>
+          <g id="leftTire">
+            <circle cx="190" cy="200" r="60" fill="none" stroke="var(--brand)" stroke-width="3" stroke-dasharray="12 8" class="spin-cw"/>
+          </g>
+          <!-- Roller -->
+          <circle cx="190" cy="200" r="24" fill="var(--brand-glow2)" stroke="var(--brand)" stroke-width="2"/>
+          <circle cx="190" cy="200" r="6" fill="var(--brand)" opacity="0.6"/>
+          <!-- Direction arrow -->
+          <path d="M 150 145 A 55 55 0 0 1 225 155" fill="none" stroke="var(--brand)" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arrowG)"/>
+          <text x="145" y="128" class="label-tag" fill="var(--brand)">CW</text>
+        </g>
+
+        <!-- Right tire assembly -->
+        <g id="rightAssembly">
+          <circle cx="370" cy="200" r="68" fill="none" stroke="var(--border)" stroke-width="1"/>
+          <circle cx="370" cy="200" r="60" fill="none" stroke="var(--brand)" stroke-width="3" opacity="0.3"/>
+          <g id="rightTire">
+            <circle cx="370" cy="200" r="60" fill="none" stroke="var(--brand)" stroke-width="3" stroke-dasharray="12 8" class="spin-ccw"/>
+          </g>
+          <circle cx="370" cy="200" r="24" fill="var(--brand-glow2)" stroke="var(--brand)" stroke-width="2"/>
+          <circle cx="370" cy="200" r="6" fill="var(--brand)" opacity="0.6"/>
+          <path d="M 415 155 A 55 55 0 0 1 335 145" fill="none" stroke="var(--brand)" stroke-width="1.5" stroke-linecap="round" marker-end="url(#arrowG)"/>
+          <text x="400" y="128" class="label-tag" fill="var(--brand)">CCW</text>
+        </g>
+
+        <!-- Transmission belt -->
+        <line x1="190" y1="262" x2="370" y2="262" stroke="var(--text2)" stroke-width="2" class="belt-path"/>
+        <line x1="190" y1="138" x2="370" y2="138" stroke="var(--text2)" stroke-width="2" class="belt-path" style="animation-direction:reverse"/>
+        <text x="280" y="278" text-anchor="middle" class="label-tag">TRANSMISSION BELT (TENSION)</text>
+
+        <!-- Labels -->
+        <text x="190" y="300" text-anchor="middle" class="label-tag" fill="var(--white)" font-size="10">TIRE 1</text>
+        <text x="370" y="300" text-anchor="middle" class="label-tag" fill="var(--white)" font-size="10">TIRE 2</text>
+
+        <!-- Lateral forces (cancel) -->
+        <g id="lateralForces" class="force-arrow">
+          <line x1="130" y1="200" x2="90" y2="200" stroke="var(--text2)" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arrowDim)"/>
+          <line x1="430" y1="200" x2="470" y2="200" stroke="var(--text2)" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arrowDim)"/>
+          <text x="60" y="204" class="label-tag" fill="var(--text3)" font-size="8">CANCEL</text>
+          <text x="474" y="204" class="label-tag" fill="var(--text3)" font-size="8">CANCEL</text>
+        </g>
+
+        <!-- Net thrust (upward) -->
+        <g id="netThrust" class="force-arrow">
+          <line x1="280" y1="130" x2="280" y2="50" stroke="var(--brand)" stroke-width="3" marker-end="url(#arrowBig)"/>
+          <rect x="238" y="30" width="84" height="22" rx="4" fill="var(--brand)" opacity="0.15"/>
+          <text x="280" y="45" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--brand)">NET THRUST</text>
+        </g>
+
+        <!-- Swivel point -->
+        <g id="swivel">
+          <circle cx="280" cy="200" r="8" fill="var(--surface)" stroke="var(--brand)" stroke-width="2"/>
+          <circle cx="280" cy="200" r="3" fill="var(--brand)"/>
+          <text x="280" y="224" text-anchor="middle" class="label-tag" fill="var(--brand)" font-size="8">SWIVEL</text>
+        </g>
+
+        <!-- Defs for arrows -->
+        <defs>
+          <marker id="arrowG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="var(--brand)"/></marker>
+          <marker id="arrowDim" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto"><path d="M0 0 L6 2.5 L0 5" fill="var(--text3)"/></marker>
+          <marker id="arrowBig" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8" fill="var(--brand)"/></marker>
+        </defs>
+      </svg>
+      <p class="anim-caption">Counter-rotating tires cancel lateral forces. Net centrifugal force is directed upward through the swivel axis.</p>
+    </div>
+
+    <!-- Steps grid -->
+    <div class="hiw-grid reveal stagger-4">
+      <div class="hiw-steps" id="hiwSteps">
+        <div class="hiw-step active-step" data-step="0">
+          <div class="hiw-step-num">STEP 01</div>
+          <h4>Counter rotation</h4>
+          <p>Two pneumatic tires of equal diameter rotate in opposite directions. Rollers pressed against each tire provide drive force.</p>
+        </div>
+        <div class="hiw-step" data-step="1">
+          <div class="hiw-step-num">STEP 02</div>
+          <h4>Belt tension</h4>
+          <p>A transmission belt connects the two discs under tension, synchronizing speed and ensuring equal and opposite lateral forces cancel out.</p>
+        </div>
+        <div class="hiw-step" data-step="2">
+          <div class="hiw-step-num">STEP 03</div>
+          <h4>Centrifugal force generation</h4>
+          <p>Each rotating tire generates centrifugal force outward. The counter-rotation geometry directs the net force vector in a single chosen direction.</p>
+        </div>
+        <div class="hiw-step" data-step="3">
+          <div class="hiw-step-num">STEP 04</div>
+          <h4>Directional thrust</h4>
+          <p>A swivel at the center of gravity rotates the entire ensemble, steering the predominant force in any direction. Zero air displacement.</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-family:var(--font-mono);font-size:0.6875rem;color:var(--text2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.75rem;">Key Principle</div>
+          <div style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.5rem);color:var(--white);line-height:1.15;margin-bottom:1rem;">
+            F = m · v² / r
+          </div>
+          <p style="font-size:0.9375rem;color:var(--text);max-width:24rem;margin:0 auto;line-height:1.6;">Centrifugal force depends only on mass, velocity, and radius. No medium required. Works in air, water, or vacuum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MARKET ═══ -->
+<section class="section section-alt" id="market">
+  <div class="container">
+    <div class="label reveal">Market Opportunity</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:1.25rem;">$330B+ across 18 sectors.</h2>
+    <p class="subhead reveal stagger-2" style="margin-bottom:3.5rem;">Zero downdraft propulsion is not a feature. It is a platform technology that unlocks new operating environments across every vehicle category.</p>
+    <div class="market-grid">
+      <div class="market-card reveal stagger-1"><div class="market-top"><h4>Agriculture Drones</h4><span class="market-tam">$10.8B</span></div><div class="market-meta"><span>CAGR <strong>32.6%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-2"><div class="market-top"><h4>eVTOL and Air Taxis</h4><span class="market-tam">$4.7B</span></div><div class="market-meta"><span>CAGR <strong>35.3%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-3"><div class="market-top"><h4>Urban Air Mobility</h4><span class="market-tam">$23.5B</span></div><div class="market-meta"><span>CAGR <strong>31.2%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-4"><div class="market-top"><h4>Military UAV</h4><span class="market-tam">$40.6B</span></div><div class="market-meta"><span>CAGR <strong>9.2%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-5"><div class="market-top"><h4>Precision Delivery</h4><span class="market-tam">$27.4B</span></div><div class="market-meta"><span>CAGR <strong>22.8%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-6"><div class="market-top"><h4>Personal Flying Vehicles</h4><span class="market-tam">$17.3B</span></div><div class="market-meta"><span>CAGR <strong>25.4%</strong></span><span>By <strong class="fm">2035</strong></span></div></div>
+      <div class="market-card reveal stagger-7"><div class="market-top"><h4>Space Exploration</h4><span class="market-tam">$32.4B</span></div><div class="market-meta"><span>CAGR <strong>7.5%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-8"><div class="market-top"><h4>Indoor and Warehouse</h4><span class="market-tam">$18.0B</span></div><div class="market-meta"><span>CAGR <strong>15.4%</strong></span><span>By <strong class="fm">2028</strong></span></div></div>
+      <div class="market-card reveal stagger-1"><div class="market-top"><h4>Construction Inspection</h4><span class="market-tam">$6.2B</span></div><div class="market-meta"><span>CAGR <strong>8.1%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-2"><div class="market-top"><h4>Underwater and Marine</h4><span class="market-tam">$7.2B</span></div><div class="market-meta"><span>CAGR <strong>12.8%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-3"><div class="market-top"><h4>Aerial Firefighting</h4><span class="market-tam">$1.2B</span></div><div class="market-meta"><span>CAGR <strong>8.4%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+      <div class="market-card reveal stagger-4"><div class="market-top"><h4>Search and Rescue</h4><span class="market-tam">$1.8B</span></div><div class="market-meta"><span>CAGR <strong>9.1%</strong></span><span>By <strong class="fm">2030</strong></span></div></div>
+    </div>
+    <p class="reveal" style="margin-top:2rem;font-size:0.6875rem;color:var(--text3);max-width:40rem;">Market data sourced from MarketsandMarkets, Grand View Research, Mordor Intelligence, and Allied Market Research.</p>
+  </div>
+</section>
+
+<!-- ═══ TRACTION ═══ -->
+<section class="section" id="traction">
+  <div class="container">
+    <div class="label reveal">Traction</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:3rem;">Building from first principles.</h2>
+    <div class="timeline reveal stagger-2">
+      <div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-meta"><span class="tl-date">[Q1 2025]</span></div><div class="tl-title">Patent issued</div><p class="tl-desc">Core propulsion mechanism patent granted covering counter-rotating centrifugal force generation for vehicle propulsion.</p></div>
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-meta"><span class="tl-date">[Q2 2025]</span></div><div class="tl-title">LLC formation and IP assignment</div><p class="tl-desc">Operating entity formed. Patent assigned to company. Inventor retained as Chief Technology Officer.</p></div>
+      <div class="tl-item"><div class="tl-dot now"></div><div class="tl-meta"><span class="tl-date">[Q3 2025]</span></div><div class="tl-title">Prototype development initiated</div><p class="tl-desc">Engineering partnership signed. First functional prototype under construction targeting [indoor drone] form factor.</p></div>
+      <div class="tl-item"><div class="tl-dot soon"></div><div class="tl-meta"><span class="tl-date">[Q4 2025]</span></div><div class="tl-title">[First powered demonstration]</div><p class="tl-desc">[Successful hover test with zero measurable downdraft at 1 meter distance. Video documentation for investor review.]</p></div>
+      <div class="tl-item"><div class="tl-dot soon"></div><div class="tl-meta"><span class="tl-date">[Q1 2026]</span></div><div class="tl-title">[SBIR Phase I submission]</div><p class="tl-desc">[DOD Small Business Innovation Research application submitted for brownout-free military UAV propulsion module.]</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BUSINESS MODEL ═══ -->
+<section class="section section-alt" id="business-model">
+  <div class="container">
+    <div class="label reveal">Business Model</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:1.25rem;">License the engine.<br>Let partners build the vehicle.</h2>
+    <p class="subhead reveal stagger-2" style="margin-bottom:3.5rem;">We operate as a propulsion IP and module licensing company. Capital-light, scalable, positioned at the center of every vehicle that adopts the technology.</p>
+    <div class="cards">
+      <div class="card reveal stagger-1"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Technology licensing</h3><p>Per-unit royalty on every vehicle manufactured. Tiered pricing by sector and vehicle class.</p><div class="card-metric">[Target: $500 to $5,000 per unit]</div></div>
+      <div class="card reveal stagger-2"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg></div><h3>Module sales</h3><p>Pre-assembled propulsion modules sold to OEMs. Higher margin, faster time to market for licensees.</p><div class="card-metric">[Target: $2,000 to $25,000 per module]</div></div>
+      <div class="card reveal stagger-3"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Defense contracts</h3><p>SBIR, STTR, and direct DOD contract pathways. Non-dilutive funding accelerates R&D.</p><div class="card-metric">[Target: Phase I $275K, Phase II $1M+]</div></div>
+      <div class="card reveal stagger-4"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2m22 0v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div><h3>Strategic partnerships</h3><p>Co-development with eVTOL, agriculture, and logistics companies. Advance payments fund joint engineering.</p><div class="card-metric">[Target: 2 to 3 partnerships by Year 2]</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECURITY ═══ -->
+<section class="section" id="security">
+  <div class="container">
+    <div class="label reveal">Security and Compliance</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:3rem;">Built on defensible IP.</h2>
+    <div class="cards cards-3">
+      <div class="card reveal stagger-1"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zm-2 0V7a5 5 0 0 0-10 0v4"/></svg></div><h3>Patent protection</h3><p>Issued utility patent with broad claims protecting method, apparatus, and applications across all vehicle types.</p></div>
+      <div class="card reveal stagger-2"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Freedom to operate</h3><p>[FTO analysis in progress. Preliminary review shows clear operating space. No blocking patents identified.]</p></div>
+      <div class="card reveal stagger-3"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg></div><h3>FAA pathway</h3><p>Novel propulsion category. Early FAA Innovation Division engagement planned. eVTOL Part 21.17b precedent establishes framework.</p></div>
+      <div class="card reveal stagger-4"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>ITAR and export</h3><p>Military applications may require ITAR classification. Legal counsel retained for export control compliance.</p></div>
+      <div class="card reveal stagger-5"><div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></div><h3>Insurance and liability</h3><p>[Product liability and commercial insurance to be bound concurrent with prototype completion.]</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ROADMAP ═══ -->
+<section class="section section-alt" id="roadmap">
+  <div class="container">
+    <div class="label reveal">Roadmap</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:3rem;">From patent to platform.</h2>
+    <div class="timeline reveal stagger-2">
+      <div class="tl-line"></div>
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-meta"><span class="tl-date">Phase 0</span><span class="tl-time">[Months 1 to 3]</span></div><div class="tl-title">Legal Foundation</div><ul class="tl-list"><li>LLC formation and IP assignment</li><li>Freedom to operate analysis</li><li>Prototype development agreement</li><li>Insurance binding</li></ul></div>
+      <div class="tl-item"><div class="tl-dot now"></div><div class="tl-meta"><span class="tl-date">Phase 1</span><span class="tl-time">[Months 3 to 9]</span></div><div class="tl-title">Prototype Build</div><ul class="tl-list"><li>Functional propulsion module</li><li>Controlled hover demonstration</li><li>Zero downdraft measurement</li><li>Video for investor outreach</li></ul></div>
+      <div class="tl-item"><div class="tl-dot soon"></div><div class="tl-meta"><span class="tl-date">Phase 2</span><span class="tl-time">[Months 9 to 18]</span></div><div class="tl-title">Validation</div><ul class="tl-list"><li>Third party testing</li><li>SBIR Phase I submission</li><li>Continuation patent filings</li><li>First licensing LOI</li></ul></div>
+      <div class="tl-item"><div class="tl-dot soon"></div><div class="tl-meta"><span class="tl-date">Phase 3</span><span class="tl-time">[Months 18 to 36]</span></div><div class="tl-title">Market Entry</div><ul class="tl-list"><li>First licensing revenue</li><li>Defense pilot program</li><li>Agriculture OEM partnership</li><li>Series A preparation</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TEAM ═══ -->
+<section class="section" id="team">
+  <div class="container">
+    <div class="label reveal">Team</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:3rem;">Inventor. Builder. Operator.</h2>
+    <div class="cards cards-3">
+      <div class="card team-card reveal stagger-1">
+        <div class="team-avatar"><span>E</span></div>
+        <h3>Elio Casamassima</h3>
+        <p class="team-role">Inventor and CTO</p>
+        <p class="team-bio">Originator of counter-rotating centrifugal force propulsion. [XX] years in mechanical engineering and vehicle systems. Holds the issued patent.</p>
+      </div>
+      <div class="card team-card reveal stagger-2">
+        <div class="team-avatar"><span>J</span></div>
+        <h3>Jerikson Pena</h3>
+        <p class="team-role">CEO and Operations</p>
+        <p class="team-bio">Background in hardware commercialization, construction, and systems engineering. Responsible for prototype development, licensing strategy, and go-to-market execution.</p>
+      </div>
+      <div class="card team-card reveal stagger-3">
+        <div class="team-avatar"><span>A</span></div>
+        <h3>[Advisor Name]</h3>
+        <p class="team-role">Technical Advisor</p>
+        <p class="team-bio">[Background in aerospace engineering, defense procurement, or relevant domain. Advisory role supporting technical validation and DOD engagement.]</p>
+      </div>
+    </div>
+    <p class="reveal stagger-4" style="margin-top:2rem;font-size:0.9375rem;color:var(--text);max-width:32rem;">We are assembling a world-class team. Deep experience in aerospace propulsion, defense tech, or hardware licensing? We want to hear from you.</p>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="section section-alt" id="faq">
+  <div class="container">
+    <div class="label reveal">FAQ</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:3rem;">Investor questions, answered.</h2>
+    <div class="faq reveal stagger-2">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How does centrifugal force produce directional thrust?<svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>Two tires of equal diameter spin in opposite directions. Counter-rotation cancels lateral forces and directs the net centrifugal force vector in a single direction. A swivel mechanism allows the operator to aim that vector anywhere.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Has this been independently validated?<svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>[The core physics are well-established Newtonian mechanics. Independent third-party testing is planned for Phase 2. A functional prototype demonstration is targeted for Q4 2025.]</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is the competitive moat?<svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>Physics-based. You cannot achieve zero downdraft with any rotor, propeller, or jet. The patent covers the primary non-aerodynamic propulsion mechanism for vehicles. Multi-sector protection from a single patent.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Why license instead of building vehicles?<svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>Licensing captures value across 18 sectors simultaneously without building 18 different vehicles. Think Qualcomm, not Samsung. The propulsion module is the core value.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is the current funding status?<svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>[Pre-seed. Seeking $[X]M to fund prototype completion, validation, patent continuation filings, and first licensing partnerships. Terms available under NDA.]</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Does this really work in vacuum?<svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>Centrifugal force is generated by rotation. It does not require a medium. An electric motor spinning a mass in vacuum generates identical centrifugal force as on Earth. Solar-powered, it operates indefinitely without fuel.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do you navigate FAA certification?<svg class="faq-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><p>Novel propulsion requires a new certification pathway. eVTOL companies navigate Part 21.17b special conditions. We plan early FAA Innovation Division engagement and will leverage that regulatory precedent.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="label reveal">Contact</div>
+    <h2 class="headline reveal stagger-1" style="margin-bottom:1.25rem;">Interested? Let's talk.</h2>
+    <p class="subhead reveal stagger-2" style="margin-bottom:3rem;">We are selectively engaging investors, strategic partners, and technical advisors who understand platform technologies.</p>
+    <div class="card form-card reveal stagger-3" id="contactCard">
+      <div class="form-row">
+        <div><label class="form-label">Full name <span class="req">*</span></label><input class="form-input" type="text" required></div>
+        <div><label class="form-label">Email <span class="req">*</span></label><input class="form-input" type="email" required></div>
+      </div>
+      <div class="form-group"><label class="form-label">Company or fund</label><input class="form-input" type="text"></div>
+      <div class="form-group"><label class="form-label">Interest</label><select class="form-select"><option value="">Select one</option><option>Investing</option><option>Licensing or partnership</option><option>Technical advisory</option><option>Media</option><option>Other</option></select></div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea"></textarea></div>
+      <button class="form-submit" onclick="submitForm(event)">Send Message</button>
+      <p class="form-note">This site is for informational purposes only and does not constitute an offer to sell securities.</p>
+    </div>
+    <div class="card form-card form-success" id="contactSuccess">
+      <div class="check-circle"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <h3 class="fd" style="font-size:1.25rem;color:var(--white);margin-bottom:0.375rem;">Message received.</h3>
+      <p style="font-size:0.9375rem;color:var(--text);">We will follow up within two business days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="cta-band-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <h2 class="headline reveal" style="margin-bottom:0.75rem;">The physics are real.<br>The market is waiting.</h2>
+    <p class="subhead reveal stagger-1" style="text-align:center;margin:0 auto 2.5rem;">Join us at the frontier of propulsion technology.</p>
+    <div class="cta-btns reveal stagger-2">
+      <a href="#contact" class="btn btn-p">Request a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+      <a href="#" class="btn btn-s">Download Pitch Deck <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5l5 5 5-5m-5 5V3"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:0.5rem;">
+          <div class="logo-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="8" cy="12" r="5"/><circle cx="16" cy="12" r="5"/></svg></div>
+          <span class="logo-text">Centrifugal Propulsion Systems</span>
+        </div>
+        <p>The future of propulsion has zero downdraft.</p>
+      </div>
+      <div class="footer-col"><h4>Sections</h4><a href="#problem">Problem</a><a href="#solution">Solution</a><a href="#product">Product</a><a href="#how-it-works">Mechanism</a><a href="#market">Market</a><a href="#traction">Traction</a></div>
+      <div class="footer-col"><h4>More</h4><a href="#business-model">Business Model</a><a href="#roadmap">Roadmap</a><a href="#team">Team</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="/cdn-cgi/l/email-protection#0960677f6c7a7d496a6c677d7b606f7c6e686524797b66797c657a606667276a6664" style="display:flex;align-items:center;gap:0.375rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm16 2l-8 5-8-5"/></svg><span class="__cf_email__" data-cfemail="d0b9bea6b5a3a490b3b5bea4a2b9b6a5b7b1bcfda0a2bfa0a5bca3b9bfbefeb3bfbd">[email&#160;protected]</span></a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Centrifugal Propulsion Systems. All rights reserved.</p>
+      <p>Patent protected. Confidential.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── Theme ──
+function toggleTheme(){
+  const h=document.documentElement,d=h.classList.contains('dark');
+  h.classList.toggle('dark');h.classList.toggle('light');
+  document.querySelector('meta[name="theme-color"]').content=d?'#FAFAF8':'#0A0A09';
+  document.getElementById('themeIcon').innerHTML=d
+    ?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+    :'<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/>';
+}
+
+// ── Mobile menu ──
+function toggleMenu(){
+  const m=document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+function closeMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── Nav scroll ──
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(()=>{
+    const s=window.scrollY;
+    document.getElementById('mainNav').classList.toggle('scrolled',s>40);
+    // Progress bar
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    document.getElementById('scrollProgress').style.transform=`scaleX(${h>0?s/h:0})`;
+    ticking=false;
+  });ticking=true;}
+},{passive:true});
+
+// ── Scroll reveal with IntersectionObserver ──
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');revealObs.unobserve(e.target);}});
+},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>revealObs.observe(el));
+
+// ── Active nav ──
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-link');
+const navObs=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const link=document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if(link)link.classList.add('active');
+    }
+  });
+},{rootMargin:'-25% 0px -70% 0px'});
+sections.forEach(s=>navObs.observe(s));
+
+// ── FAQ ──
+function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}
+
+// ── Contact form ──
+function submitForm(e){
+  e.preventDefault();
+  document.getElementById('contactCard').style.display='none';
+  document.getElementById('contactSuccess').classList.add('show');
+}
+
+// ── Technical animation — show force arrows on scroll ──
+const techAnimObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      setTimeout(()=>{document.getElementById('lateralForces').classList.add('show');},400);
+      setTimeout(()=>{document.getElementById('netThrust').classList.add('show');},900);
+      techAnimObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.3});
+const techAnim=document.getElementById('techAnim');
+if(techAnim)techAnimObs.observe(techAnim);
+
+// ── HIW step highlighting on scroll ──
+const hiwSteps=document.querySelectorAll('.hiw-step');
+const hiwObs=new IntersectionObser
